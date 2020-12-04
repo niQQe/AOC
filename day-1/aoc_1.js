@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const numberArr = fs.readFileSync('numbers.txt', 'utf-8')
+const numberArr = fs.readFileSync('input.txt', 'utf-8')
 	.toString()
 	.split(`\n`)
 	.map(v => +v)
