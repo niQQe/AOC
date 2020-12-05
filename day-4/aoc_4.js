@@ -7,34 +7,34 @@ const passports = input.split`\n\n`.map(pass => pass.replace(/[ ||\n]/g, ',').sp
 const requiredFieldsAndValidators = [
 	{
 		passField: "byr",
-		valid: (field) => {
-			const f = field.replace(/\D/g, '')
-			return f >= 1920 && f <= 2002
+		valid: (value) => {
+			const v = value.replace(/\D/g, '')
+			return v >= 1920 && v <= 2002
 		}
 	},
 	{
 		passField: "iyr",
-		valid: (field) => {
-			const f = field.replace(/\D/g, '')
-			return f >= 2010 && f <= 2020
+		valid: (value) => {
+			const v = value.replace(/\D/g, '')
+			return v >= 2010 && v <= 2020
 		}
 	},
 	{
 		passField: "eyr",
-		valid: (field) => {
-			const f = field.replace(/\D/g, '')
-			return f >= 2020 && f <= 2030
+		valid: (value) => {
+			const v = value.replace(/\D/g, '')
+			return v >= 2020 && v <= 2030
 		}
 	},
 	{
 		passField: "hgt",
-		valid: (field) => {
-			if (field.includes('cm')) {
-				const [height] = field.split`cm`
+		valid: (value) => {
+			if (value.includes('cm')) {
+				const [height] = value.split`cm`
 				return +height >= 150 && +height <= 193
 			}
-			if (field.includes('in')) {
-				const [height] = field.split`in`
+			if (value.includes('in')) {
+				const [height] = value.split`in`
 				return +height >= 59 && +height <= 75
 			}
 			return false
@@ -42,11 +42,11 @@ const requiredFieldsAndValidators = [
 	},
 	{
 		passField: "hcl",
-		valid: (field) => {
-			let f = null
-			if (field[0] === '#') {
-				f = field.replace(/#/, '')
-				return /[0-9a-z]/i.test(f) && f.length === 6
+		valid: (value) => {
+			let v = null
+			if (value[0] === '#') {
+				v = value.replace(/#/, '')
+				return /[0-9a-z]/i.test(v) && v.length === 6
 			} else {
 				return false
 			}
@@ -54,15 +54,15 @@ const requiredFieldsAndValidators = [
 	},
 	{
 		passField: "ecl",
-		valid: (field) => {
+		valid: (value) => {
 			const allowed = ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']
-			return allowed.includes(field)
+			return allowed.includes(value)
 		}
 	},
 	{
 		passField: "pid",
-		valid: (field) => {
-			return /[0-9]/.test(field) && field.length === 9
+		valid: (value) => {
+			return /[0-9]/.test(value) && value.length === 9
 		}
 	}
 ]
