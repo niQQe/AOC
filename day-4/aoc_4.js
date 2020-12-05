@@ -87,7 +87,7 @@ console.log(validPassportsPart1)
 /**
  *  Part 2
  */
-const passportValidator = (field, value, callback) => {
+const fieldValidator = (field, value, callback) => {
 	requiredFieldsAndValidators.forEach((reqField) => {
 		if (reqField.passField == field) {
 			callback(reqField.valid(value))
@@ -98,7 +98,7 @@ const passportValidator = (field, value, callback) => {
 const validPassportsPart2 = passports.reduce((passports, row) => {
 	const validFields = row.reduce((fields, fieldRow) => {
 		const [field, value] = fieldRow.split`:`
-		passportValidator(field, value, fieldIsValid => {
+		fieldValidator(field, value, fieldIsValid => {
 			if (fieldIsValid) fields++
 		})
 		return fields
