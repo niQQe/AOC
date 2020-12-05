@@ -7,11 +7,10 @@ const passports = input.split('\n\n').map(pass => pass.replace(/ /g, '\n').repla
 const validPasswords = passports.reduce((fields, curr) => {
 	const fieldsArr = curr.reduce((acc, field) => {
 		[field] = field.split`:`
-		if (field != 'cid')
-			acc.push(field)
+		if (field != 'cid') acc.push(field)
 		return acc
 	}, [])
-	if(fieldsArr.length == 7) fields++
+	if (fieldsArr.length == 7) fields++
 	return fields
 }, 0)
 
