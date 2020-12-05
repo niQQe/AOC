@@ -2,11 +2,12 @@ const fs = require('fs')
 
 const map = fs.readFileSync('input.txt', 'utf-8').split(`\n`)
 
-let position = 3
 
 /**
  *  Part 1
  */
+let position = 3
+
 const treesHit = map.reduce((trees, curr, i) => {
 	if (i == 0) return trees
 	const row = curr.split``
