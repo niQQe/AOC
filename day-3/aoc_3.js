@@ -26,7 +26,7 @@ console.log(part1Result)
  */
 const slopesAndDowns = ['1,1', '3,1', '5,1', '7,1', '1,2']
 
-const part2Result = slopesAndDowns.reduce((acc, slope) => {
+const part2Result = slopesAndDowns.reduce((total, slope) => {
 	const [right, down] = slope.split`,`
 	let position = +right
 
@@ -36,13 +36,13 @@ const part2Result = slopesAndDowns.reduce((acc, slope) => {
 		if (i == 0 || i % +down !== 0) return trees
 		if (position >= row.length) position = position % row.length
 		if (row[position] == '#') trees++
-		
+
 		position += +right
 		return trees
 	}, 0)
 
-	acc *= treesHit
-	return acc
+	total *= treesHit
+	return total
 }, 1)
 
 console.log(part2Result)
