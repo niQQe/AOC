@@ -31,10 +31,8 @@ const validPasswordsPart2 = passwordObjects.reduce((valid, object) => {
 	const letters = object.password.split``	
 	const letter1 = letters[pos1]
 	const letter2 = letters[pos2]
-	
 	if(letter1 !== letter2 && (letter1 == object.letter || letter2 == object.letter))
 		valid++
-
 	return valid
 }, 0)
 
