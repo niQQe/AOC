@@ -9,11 +9,9 @@ let position = 3
 
 const part1Result = map.reduce((trees, curr, i) => {
 	const row = curr.split``
-
 	if (i == 0) return trees
 	if (position >= row.length) position = position % row.length
 	if (row[position] == '#') trees++
-
 	position += 3
 	return trees
 }, 0)
@@ -31,7 +29,6 @@ const part2Result = slopesAndDowns.reduce((total, slope) => {
 
 	const treesHit = map.reduce((trees, curr, i) => {
 		const row = curr.split``
-
 		if (i == 0 || i % +down !== 0) return trees
 		if (position >= row.length) position = position % row.length
 		if (row[position] == '#') trees++
