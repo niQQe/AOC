@@ -2,7 +2,6 @@ const fs = require('fs')
 
 const map = fs.readFileSync('input.txt', 'utf-8').split(`\n`)
 
-
 /**
  *  Part 1
  */
