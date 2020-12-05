@@ -70,7 +70,6 @@ const requiredFieldsAndValidators = [
 /**
  *  Part 1
  */
-
 const validPassportsPart1 = passports.reduce((passports, row) => {
 	const valid = row.reduce((valid, fieldRow) => {
 		const [field] = fieldRow.split`:`
