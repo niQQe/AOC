@@ -5,9 +5,9 @@ const declarations = fs.readFileSync('input.txt', 'utf-8').split(`\n\n`).map(v =
 /**
  *  Part 1
  */
-const totalYesAnswers = declarations.reduce((yesAnwsers, answer) => {
-	yesAnwsers += [...new Set(answer.split``)].length
-	return yesAnwsers
+const totalYesAnswers = declarations.reduce((yesAnswers, answer) => {
+	yesAnswers += [...new Set(answer.split``)].length
+	return yesAnswers
 }, 0)
 
 console.log(totalYesAnswers)
