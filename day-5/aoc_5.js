@@ -16,7 +16,7 @@ const maxSeatId = Math.max(...tickets.reduce((ids, ticket) => {
 		char == "F" ? rows.forEach(() => rows.pop()) : rows.forEach(() => rows.shift())
 	})
 
-	colChars.forEach(char =>{
+	colChars.forEach(char => {
 		char == "R" ? cols.forEach(() => cols.shift()) : cols.forEach(() => cols.pop())
 	})
 
