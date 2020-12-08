@@ -24,7 +24,6 @@ const highestSeatId = Math.max(...tickets.reduce((ids, ticket) => {
 	const [ row ] = rows
 	const [ col ] = cols
 
-	// 
 	ids.push(row * 8 + col)
 	return ids
 }, []))
