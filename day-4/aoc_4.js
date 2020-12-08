@@ -29,15 +29,15 @@ const requiredFieldsAndValidators = [
 	{
 		passField: "hgt",
 		valid: (value) => {
-			if (value.includes('cm')) {
-				const [height] = value.split`cm`
-				return +height >= 150 && +height <= 193
-			}
-			if (value.includes('in')) {
-				const [height] = value.split`in`
-				return +height >= 59 && +height <= 75
-			}
-			return false
+				if(!value.match((/(\d{2,3})(cm|in)/))) return false
+				const [, height, metric] = value.match((/(\d{2,3})(cm|in)/))
+				if (metric == 'cm') {
+					return +height >= 150 && +height <= 193
+				}
+				if (metric == 'in') {
+					return +height >= 59 && +height <= 75
+				}
+				return false
 		}
 	},
 	{
