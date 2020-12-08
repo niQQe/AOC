@@ -29,4 +29,10 @@ const highestSeatId = Math.max(...tickets.reduce((ids, ticket) => {
 	return ids
 }, []))
 
-console.log(highestSeatId)
+console.log(highestSeatId) 
+
+/**
+ * Part 2
+ */
+
+// The missing seatID is 569 (my seat)

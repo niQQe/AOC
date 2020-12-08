@@ -37,7 +37,6 @@ const requiredFieldsAndValidators = [
 				if (metric == 'in') {
 					return +height >= 59 && +height <= 75
 				}
-				return false
 		}
 	},
 	{
