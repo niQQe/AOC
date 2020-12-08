@@ -5,7 +5,8 @@ const tickets = fs.readFileSync('input.txt', 'utf-8').split(`\n`)
 /**
  *  Part 1
  */
-const maxSeatId = Math.max(...tickets.reduce((ids, ticket) => {
+
+const highestSeatId = Math.max(...tickets.reduce((ids, ticket) => {
 	const rowChars = ticket.slice(0, -3).split``
 	const colChars = ticket.substring(7).split``
 
@@ -23,13 +24,9 @@ const maxSeatId = Math.max(...tickets.reduce((ids, ticket) => {
 	const [ row ] = rows
 	const [ col ] = cols
 
+	// 
 	ids.push(row * 8 + col)
-
 	return ids
 }, []))
 
-console.log(maxSeatId)
-
-
-
-
+console.log(highestSeatId)
