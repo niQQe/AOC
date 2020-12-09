@@ -25,7 +25,7 @@ const onlyYesAnwers = part2Declarations.reduce((yesAnswers, group) => {
 	Object.keys(char = group.join``.split``.reduce((charAmount, amount) => {
 		charAmount[amount] = (charAmount[amount] || 0) + 1
 		return charAmount
-	}, {})).forEach(amount => char[amount] == group.length  ? yesAnswers++ : null )
+	}, {})).forEach(amount => char[amount] == group.length ? yesAnswers++ : null)
 	return yesAnswers
 }, 0)
 
