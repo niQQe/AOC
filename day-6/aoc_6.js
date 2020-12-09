@@ -5,7 +5,6 @@ const declarations = fs.readFileSync('input.txt', 'utf-8').split(`\n\n`)
 /**
  *  Part 1
  */
-
 const part1Declarations = declarations.map(v => v.replace(/[\n\r]/g, ''))
 
 const totalYesAnswers = part1Declarations.reduce((yesAnswers, answer) => {
@@ -18,7 +17,6 @@ console.log(totalYesAnswers)
 /**
  * Part 2
  */
-
 const part2Declarations = declarations.map(v => v.split`\n`)
 
 const onlyYesAnwers = part2Declarations.reduce((yesAnswers, group) => {
