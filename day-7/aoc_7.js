@@ -9,24 +9,23 @@ const bagList = bagrules.reduce((acc, curr) => {
 	return acc
 }, {})
 
-let bagColors = []
+let bagColorsCounted = []
 
-let colorCount = 0
-
-const shinyGoldFinder = (colors) => {
-	colors.forEach(color => {
-		bagColors.push(color)
-		colorCount++
-		Object.keys(bagList).forEach(bagcolor => {
-			if(bagList[bagcolor].includes(color) && !bagColors.includes(bagcolor))
-				shinyGoldFinder([bagcolor])
-		})
-	}) 	
-}
-
-Object.keys(bagList).forEach(color => {
-	if(bagList[color].includes('shiny gold'))
+const totalOuterColors = Object.keys(bagList).reduce((total, color) => {
+	const shinyGoldFinder = (colors) => {
+		colors.forEach(color => {
+			bagColorsCounted.push(color)
+			total++
+			Object.keys(bagList).forEach(bagcolor => {
+				if(bagList[bagcolor].includes(color) && !bagColorsCounted.includes(bagcolor))
+					shinyGoldFinder([bagcolor])
+			})
+		}) 	
+	}
+	if(bagList[color].includes('shiny gold')){
 		shinyGoldFinder([color])
-})
+	}
+	return total
+},0)
 
-console.log(colorCount)
+console.log(totalOuterColors)
