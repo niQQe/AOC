@@ -8,20 +8,17 @@ function isOccupied() {
 	// CHECK ABOVE ROW
 	function CAR(row, currentIndex) {
 		if (row) {
-			if (row[currentIndex] != '#' && row[currentIndex - 1] != '#' && row[currentIndex + 1] != '#')
-				return true
+			return row[currentIndex] != '#' && row[currentIndex - 1] != '#' && row[currentIndex + 1] != '#'
 		}
 	}
 	// CHECK CURRENT ROW
 	function CCR(row, currentIndex) {
-		if (row[currentIndex - 1] != '#' && row[currentIndex + 1] != '#')
-			return true
+		return row[currentIndex - 1] != '#' && row[currentIndex + 1] != '#'
 	}
 	// CHECK BELOW ROW
 	function CBR(row, currentIndex) {
 		if (row) {
-			if (row[currentIndex] != '#' && row[currentIndex - 1] != '#' && row[currentIndex + 1] != '#')
-				return true
+			return row[currentIndex] != '#' && row[currentIndex - 1] != '#' && row[currentIndex + 1] != '#'
 		}
 	}
 
@@ -111,6 +108,8 @@ function isAvailable() {
 
 let compareMap = null
 
+
+// Run until map not changes
 for(;;){
 	isOccupied()
 	compareMap = JSON.parse(JSON.stringify(seatMap))
@@ -121,6 +120,7 @@ for(;;){
 
 let occupied = 0
 
+// Count occupied seats
 for(let row of seatMap){
 	for(seat of row){
 		if(seat == '#')

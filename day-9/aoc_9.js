@@ -36,7 +36,6 @@ const notFollowingRule = numbers.reduce((acc, n) => {
  *  Part 2
  */
 
-
 const numbers2 = fs.readFileSync('input.txt', 'utf-8').split(`\n`).map(n => +n)
 
 let end = []
