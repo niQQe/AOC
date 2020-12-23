@@ -7,26 +7,24 @@ const emptySymbol = 'L'
 const occupiedSymbol = '#'
 
 function isOccupied() {
-	// CHECK ABOVE ROW
-	const CAR = (row, i) => row ? row[i] != occupiedSymbol && row[i - 1] != occupiedSymbol && row[i + 1] != occupiedSymbol : null
+	// CHECK ABOVE OR BELOW
+	const checkAboveOrBelow = (row, i) => row ? row[i] != occupiedSymbol && row[i - 1] != occupiedSymbol && row[i + 1] != occupiedSymbol : null
 	// CHECK CURRENT ROW
-	const CCR = (row, i) => row[i - 1] != occupiedSymbol && row[i + 1] != occupiedSymbol
-	// CHECK BELOW ROW
-	const CBR = (row, i) => row ? row[i] != occupiedSymbol && row[i - 1] != occupiedSymbol && row[i + 1] != occupiedSymbol : null
+	const checkCurrentRow = (row, i) => row[i - 1] != occupiedSymbol && row[i + 1] != occupiedSymbol
 
 	for (let [rIdx, row] of seatMap.entries()) {
 		for (let [i, _] of row.entries()) {
 			if (row[i] == emptySymbol) {
 				if (rIdx == 0) {
-					if (CBR(seatMap[rIdx + 1], i) && CCR(row, i)) {
+					if (checkAboveOrBelow(seatMap[rIdx + 1], i) && checkCurrentRow(row, i)) {
 						mySeatMap[rIdx][i] = occupiedSymbol
 					}
 				}
-				if (CCR(row, i) && CAR(seatMap[rIdx - 1], i) && CBR(seatMap[rIdx + 1], i)) {
+				if (checkCurrentRow(row, i) && checkAboveOrBelow(seatMap[rIdx - 1], i) && checkAboveOrBelow(seatMap[rIdx + 1], i)) {
 					mySeatMap[rIdx][i] = occupiedSymbol
 				}
 				if (rIdx == seatMap.length - 1) {
-					if (CAR(seatMap[rIdx - 1], i) && CCR(row, i)) {
+					if (checkAboveOrBelow(seatMap[rIdx - 1], i) && checkCurrentRow(row, i)) {
 						mySeatMap[rIdx][i] = occupiedSymbol
 					}
 				}
@@ -37,8 +35,8 @@ function isOccupied() {
 }
 
 function isEmpty() {
-	// CHECK ABOVE ROW
-	const CAR = (row, i) => {
+	// CHECK ABOVE OR BELOW
+	const checkAboveOrBelow = (row, i) => {
 		let occupied = 0
 		if (row) {
 			if (row[i] == occupiedSymbol) occupied++
@@ -48,20 +46,10 @@ function isEmpty() {
 		return occupied
 	}
 	// CHECK CURRENT ROW
-	const CCR = (row, i) => {
+	const checkCurrentRow = (row, i) => {
 		let occupied = 0
 		if (row[i - 1] == occupiedSymbol) occupied++
 		if (row[i + 1] == occupiedSymbol) occupied++
-		return occupied
-	}
-	// CHECK BELOW ROW
-	const CBR = (row, i) => {
-		let occupied = 0
-		if (row) {
-			if (row[i] == occupiedSymbol) occupied++
-			if (row[i - 1] == occupiedSymbol) occupied++
-			if (row[i + 1] == occupiedSymbol) occupied++
-		}
 		return occupied
 	}
 	for (let [rIdx, row] of seatMap.entries()) {
@@ -69,17 +57,17 @@ function isEmpty() {
 			if (row[i] == occupiedSymbol) {
 				// Ignore CheckAboveRow function if first row
 				if (rIdx == 0) {
-					if (CBR(seatMap[rIdx + 1], i) + CCR(row, i) >= 4) {
+					if (checkAboveOrBelow(seatMap[rIdx + 1], i) + checkCurrentRow(row, i) >= 4) {
 						mySeatMap[rIdx][i] = emptySymbol
 					}
 				}
 				// Always check current row
-				if (CCR(row, i) + CAR(seatMap[rIdx - 1], i) + CBR(seatMap[rIdx + 1], i) >= 4) {
+				if (checkCurrentRow(row, i) + checkAboveOrBelow(seatMap[rIdx - 1], i) + checkAboveOrBelow(seatMap[rIdx + 1], i) >= 4) {
 					mySeatMap[rIdx][i] = emptySymbol
 				}
 				// Ignore CheckBelowRow function if last row
 				if (rIdx == seatMap.length - 1) {
-					if (CAR(seatMap[rIdx - 1], i) + CCR(row, i) >= 4) {
+					if (checkAboveOrBelow(seatMap[rIdx - 1], i) + checkCurrentRow(row, i) >= 4) {
 						mySeatMap[rIdx][i] = emptySymbol
 					}
 				}
