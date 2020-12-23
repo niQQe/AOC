@@ -36,38 +36,40 @@ function isOccupied() {
 
 function isEmpty() {
 	// CHECK ABOVE OR BELOW
-	const checkAboveOrBelow = (row, i) => {
+	const checkRows = ({ aboveRow = null, bellowRow = null, row, i }) => {
 		let occupied = 0
+		if (bellowRow) {
+			if (bellowRow[i] == occupiedSymbol) occupied++
+			if (bellowRow[i - 1] == occupiedSymbol) occupied++
+			if (bellowRow[i + 1] == occupiedSymbol) occupied++
+		}
+		if (aboveRow) {
+			if (aboveRow[i] == occupiedSymbol) occupied++
+			if (aboveRow[i - 1] == occupiedSymbol) occupied++
+			if (aboveRow[i + 1] == occupiedSymbol) occupied++
+		}
 		if (row) {
-			if (row[i] == occupiedSymbol) occupied++
 			if (row[i - 1] == occupiedSymbol) occupied++
 			if (row[i + 1] == occupiedSymbol) occupied++
 		}
-		return occupied
-	}
-	// CHECK CURRENT ROW
-	const checkCurrentRow = (row, i) => {
-		let occupied = 0
-		if (row[i - 1] == occupiedSymbol) occupied++
-		if (row[i + 1] == occupiedSymbol) occupied++
-		return occupied
+		return occupied >= 4
 	}
 	for (let [rIdx, row] of seatMap.entries()) {
 		for (let [i, _] of row.entries()) {
 			if (row[i] == occupiedSymbol) {
 				// Ignore CheckAboveRow function if first row
 				if (rIdx == 0) {
-					if (checkAboveOrBelow(seatMap[rIdx + 1], i) + checkCurrentRow(row, i) >= 4) {
+					if (checkRows({ bellowRow: seatMap[rIdx + 1], row, i })) {
 						mySeatMap[rIdx][i] = emptySymbol
 					}
 				}
 				// Always check current row
-				if (checkCurrentRow(row, i) + checkAboveOrBelow(seatMap[rIdx - 1], i) + checkAboveOrBelow(seatMap[rIdx + 1], i) >= 4) {
+				if (checkRows({ aboveRow: seatMap[rIdx - 1], bellowRow: seatMap[rIdx + 1], row, i })) {
 					mySeatMap[rIdx][i] = emptySymbol
 				}
 				// Ignore CheckBelowRow function if last row
 				if (rIdx == seatMap.length - 1) {
-					if (checkAboveOrBelow(seatMap[rIdx - 1], i) + checkCurrentRow(row, i) >= 4) {
+					if (checkRows({ aboveRow: seatMap[rIdx - 1], row, i })) {
 						mySeatMap[rIdx][i] = emptySymbol
 					}
 				}
@@ -92,5 +94,6 @@ const occupied = seatMap.reduce((occupied, row) => {
 	occupied += row.filter(char => char == '#').length
 	return occupied
 }, 0)
+
 
 console.log(occupied)
