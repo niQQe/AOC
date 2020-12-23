@@ -102,9 +102,7 @@ for (; ;) {
 }
 
 const occupied = seatMap.reduce((occupied, row) => {
-	row.forEach(seat => {
-		seat == occupiedSymbol ? occupied++ : null
-	})
+	occupied += row.filter(char => char == '#').length
 	return occupied
 }, 0)
 
