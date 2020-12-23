@@ -1,7 +1,6 @@
 const fs = require('fs')
 
 let seatMap = fs.readFileSync('input.txt', 'utf-8').split(`\n`).map(row => row.split``)
-
 let mySeatMap = fs.readFileSync('mymap.txt', 'utf-8').split(`\n`).map(row => row.split``)
 
 const emptySymbol = 'L'
@@ -56,12 +55,12 @@ function isEmpty() {
 		return occupied
 	}
 	// CHECK BELOW ROW
-	const CBR = (row, currentIndex) => {
+	const CBR = (row, i) => {
 		let occupied = 0
 		if (row) {
-			if (row[currentIndex] == occupiedSymbol) occupied++
-			if (row[currentIndex - 1] == occupiedSymbol) occupied++
-			if (row[currentIndex + 1] == occupiedSymbol) occupied++
+			if (row[i] == occupiedSymbol) occupied++
+			if (row[i - 1] == occupiedSymbol) occupied++
+			if (row[i + 1] == occupiedSymbol) occupied++
 		}
 		return occupied
 	}
