@@ -105,9 +105,7 @@ function isAvailable() {
 	seatMap = JSON.parse(JSON.stringify(mySeatMap))
 }
 
-
 let compareMap = null
-
 
 // Run until map not changes
 for (; ;) {
