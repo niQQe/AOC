@@ -35,7 +35,7 @@ function isOccupied() {
 }
 
 function isEmpty() {
-	// CHECK ABOVE OR BELOW
+	// CHECK ROWS
 	const checkRows = ({ aboveRow = null, bellowRow = null, row, i }) => {
 		let occupied = 0
 		if (bellowRow) {
@@ -57,7 +57,7 @@ function isEmpty() {
 	for (let [rIdx, row] of seatMap.entries()) {
 		for (let [i, _] of row.entries()) {
 			if (row[i] == occupiedSymbol) {
-				// Ignore CheckAboveRow function if first row
+				// Ignore Above row if first row
 				if (rIdx == 0) {
 					if (checkRows({ bellowRow: seatMap[rIdx + 1], row, i })) {
 						mySeatMap[rIdx][i] = emptySymbol
@@ -67,7 +67,7 @@ function isEmpty() {
 				if (checkRows({ aboveRow: seatMap[rIdx - 1], bellowRow: seatMap[rIdx + 1], row, i })) {
 					mySeatMap[rIdx][i] = emptySymbol
 				}
-				// Ignore CheckBelowRow function if last row
+				// Ignore bellow row if last row
 				if (rIdx == seatMap.length - 1) {
 					if (checkRows({ aboveRow: seatMap[rIdx - 1], row, i })) {
 						mySeatMap[rIdx][i] = emptySymbol
@@ -94,6 +94,5 @@ const occupied = seatMap.reduce((occupied, row) => {
 	occupied += row.filter(char => char == '#').length
 	return occupied
 }, 0)
-
 
 console.log(occupied)
