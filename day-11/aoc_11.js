@@ -4,38 +4,31 @@ let seatMap = fs.readFileSync('input.txt', 'utf-8').split(`\n`).map(row => row.s
 
 let mySeatMap = fs.readFileSync('mymap.txt', 'utf-8').split(`\n`).map(row => row.split``)
 
+const emptySymbol = 'L'
+const occupiedSymbol = '#'
+
 function isOccupied() {
 	// CHECK ABOVE ROW
-	function CAR(row, currentIndex) {
-		if (row) {
-			return row[currentIndex] != '#' && row[currentIndex - 1] != '#' && row[currentIndex + 1] != '#'
-		}
-	}
+	const CAR = (row, i) => row ? row[i] != occupiedSymbol && row[i - 1] != occupiedSymbol && row[i + 1] != occupiedSymbol : null
 	// CHECK CURRENT ROW
-	function CCR(row, currentIndex) {
-		return row[currentIndex - 1] != '#' && row[currentIndex + 1] != '#'
-	}
+	const CCR = (row, i) => row[i - 1] != occupiedSymbol && row[i + 1] != occupiedSymbol
 	// CHECK BELOW ROW
-	function CBR(row, currentIndex) {
-		if (row) {
-			return row[currentIndex] != '#' && row[currentIndex - 1] != '#' && row[currentIndex + 1] != '#'
-		}
-	}
+	const CBR = (row, i) => row ? row[i] != occupiedSymbol && row[i - 1] != occupiedSymbol && row[i + 1] != occupiedSymbol : null
 
-	for (let [rowIndex, row] of seatMap.entries()) {
-		for (let i = 0; i < row.length; i++) {
-			if (row[i] == 'L') {
-				if (rowIndex == 0) {
-					if (CBR(seatMap[rowIndex + 1], i) && CCR(row, i)) {
-						mySeatMap[rowIndex][i] = '#'
+	for (let [rIdx, row] of seatMap.entries()) {
+		for (let [i, _] of row.entries()) {
+			if (row[i] == emptySymbol) {
+				if (rIdx == 0) {
+					if (CBR(seatMap[rIdx + 1], i) && CCR(row, i)) {
+						mySeatMap[rIdx][i] = occupiedSymbol
 					}
 				}
-				if (CCR(row, i) && CAR(seatMap[rowIndex - 1], i) && CBR(seatMap[rowIndex + 1], i)) {
-					mySeatMap[rowIndex][i] = '#'
+				if (CCR(row, i) && CAR(seatMap[rIdx - 1], i) && CBR(seatMap[rIdx + 1], i)) {
+					mySeatMap[rIdx][i] = occupiedSymbol
 				}
-				if (rowIndex == seatMap.length - 1) {
-					if (CAR(seatMap[rowIndex - 1], i) && CCR(row, i)) {
-						mySeatMap[rowIndex][i] = '#'
+				if (rIdx == seatMap.length - 1) {
+					if (CAR(seatMap[rIdx - 1], i) && CCR(row, i)) {
+						mySeatMap[rIdx][i] = occupiedSymbol
 					}
 				}
 			}
@@ -44,59 +37,51 @@ function isOccupied() {
 	seatMap = JSON.parse(JSON.stringify(mySeatMap))
 }
 
-function isAvailable() {
+function isEmpty() {
 	// CHECK ABOVE ROW
-	function CAR(row, currentIndex) {
+	const CAR = (row, i) => {
 		let occupied = 0
 		if (row) {
-			if (row[currentIndex] == '#')
-				occupied++
-			if (row[currentIndex - 1] == '#')
-				occupied++
-			if (row[currentIndex + 1] == '#')
-				occupied++
+			if (row[i] == occupiedSymbol) occupied++
+			if (row[i - 1] == occupiedSymbol) occupied++
+			if (row[i + 1] == occupiedSymbol) occupied++
 		}
 		return occupied
 	}
 	// CHECK CURRENT ROW
-	function CCR(row, currentIndex) {
+	const CCR = (row, i) => {
 		let occupied = 0
-		if (row[currentIndex - 1] == '#')
-			occupied++
-		if (row[currentIndex + 1] == '#')
-			occupied++
+		if (row[i - 1] == occupiedSymbol) occupied++
+		if (row[i + 1] == occupiedSymbol) occupied++
 		return occupied
 	}
 	// CHECK BELOW ROW
-	function CBR(row, currentIndex) {
+	const CBR = (row, currentIndex) => {
 		let occupied = 0
 		if (row) {
-			if (row[currentIndex] == '#')
-				occupied++
-			if (row[currentIndex - 1] == '#')
-				occupied++
-			if (row[currentIndex + 1] == '#')
-				occupied++
+			if (row[currentIndex] == occupiedSymbol) occupied++
+			if (row[currentIndex - 1] == occupiedSymbol) occupied++
+			if (row[currentIndex + 1] == occupiedSymbol) occupied++
 		}
 		return occupied
 	}
-	for (let [rowIndex, row] of seatMap.entries()) {
-		for (let i = 0; i < row.length; i++) {
-			if (row[i] == '#') {
+	for (let [rIdx, row] of seatMap.entries()) {
+		for (let [i, _] of row.entries()) {
+			if (row[i] == occupiedSymbol) {
 				// Ignore CheckAboveRow function if first row
-				if (rowIndex == 0) {
-					if (CBR(seatMap[rowIndex + 1], i) + CCR(row, i) >= 4) {
-						mySeatMap[rowIndex][i] = 'L'
+				if (rIdx == 0) {
+					if (CBR(seatMap[rIdx + 1], i) + CCR(row, i) >= 4) {
+						mySeatMap[rIdx][i] = emptySymbol
 					}
 				}
 				// Always check current row
-				if (CCR(row, i) + CAR(seatMap[rowIndex - 1], i) + CBR(seatMap[rowIndex + 1], i) >= 4) {
-					mySeatMap[rowIndex][i] = 'L'
+				if (CCR(row, i) + CAR(seatMap[rIdx - 1], i) + CBR(seatMap[rIdx + 1], i) >= 4) {
+					mySeatMap[rIdx][i] = emptySymbol
 				}
 				// Ignore CheckBelowRow function if last row
-				if (rowIndex == seatMap.length - 1) {
-					if (CAR(seatMap[rowIndex - 1], i) + CCR(row, i) >= 4) {
-						mySeatMap[rowIndex][i] = 'L'
+				if (rIdx == seatMap.length - 1) {
+					if (CAR(seatMap[rIdx - 1], i) + CCR(row, i) >= 4) {
+						mySeatMap[rIdx][i] = emptySymbol
 					}
 				}
 			}
@@ -111,19 +96,16 @@ let compareMap = null
 for (; ;) {
 	isOccupied()
 	compareMap = JSON.parse(JSON.stringify(seatMap))
-	isAvailable()
+	isEmpty()
 	if (JSON.stringify(compareMap) == JSON.stringify(seatMap))
 		break;
 }
 
-let occupied = 0
-
-// Count occupied seats
-for (let row of seatMap) {
-	for (seat of row) {
-		if (seat == '#')
-			occupied++
-	}
-}
+const occupied = seatMap.reduce((occupied, row) => {
+	row.forEach(seat => {
+		seat == occupiedSymbol ? occupied++ : null
+	})
+	return occupied
+}, 0)
 
 console.log(occupied)
