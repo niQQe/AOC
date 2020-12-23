@@ -110,20 +110,20 @@ let compareMap = null
 
 
 // Run until map not changes
-for(;;){
+for (; ;) {
 	isOccupied()
 	compareMap = JSON.parse(JSON.stringify(seatMap))
 	isAvailable()
-	if(JSON.stringify(compareMap) == JSON.stringify(seatMap))
+	if (JSON.stringify(compareMap) == JSON.stringify(seatMap))
 		break;
 }
 
 let occupied = 0
 
 // Count occupied seats
-for(let row of seatMap){
-	for(seat of row){
-		if(seat == '#')
+for (let row of seatMap) {
+	for (seat of row) {
+		if (seat == '#')
 			occupied++
 	}
 }
