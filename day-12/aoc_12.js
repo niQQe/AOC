@@ -29,8 +29,7 @@ const compass = (dir, degree) => {
 	
 }
 
-let x = 0,
-	y = 0
+let x = 0, y = 0
 
 for (let [dir, ...value] of instructions) {
 	value = +value.join``
