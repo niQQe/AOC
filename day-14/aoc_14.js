@@ -21,5 +21,4 @@ const part1Result = Object.values(input.reduce((acc, row) => {
 	return acc
 }, {})).reduce((a, b) => a + b)
 
-
 console.log(part1Result)
