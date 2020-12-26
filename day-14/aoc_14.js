@@ -16,13 +16,13 @@ const part1Result = Object.values(input.reduce((acc, row) => {
 	if (row.includes('mask')) {
 		mask = row.split(' = ')[1].split``
 	} else {
-		const [rawAdress, rawValue] = row.split` = `
-		const adress = +rawAdress.replace(/\D/g, '')
-		const binary = (+rawValue).toString(2)
-		const value = [...new Array(36).fill(0)].join``.substr(binary.length) + binary
-		acc[adress] = parseInt(applyMask([...value]), 2)
+		const [adress, value] = row.split` = `.map(v => v.replace(/\D/g,''))
+		const binary = (+value).toString(2)
+		const value36bit = [...new Array(36).fill(0)].join``.substr(binary.length) + binary
+		acc[adress] = parseInt(applyMask([...value36bit]), 2)
 	}
 	return acc
 }, {})).reduce((a, b) => a + b)
+
 
 console.log(part1Result)
