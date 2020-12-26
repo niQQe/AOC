@@ -4,11 +4,8 @@ const input = fs.readFileSync('input.txt', 'utf-8').split`\n`
 let mask
 
 const applyMask = (value) => {
-	for (let [index, char] of mask.entries()) {
-		if (char != 'X') {
-			value[index] = char
-		}
-	}
+	for (let [index, char] of mask.entries())
+		if (char != 'X') value[index] = char
 	return value.join``
 }
 
