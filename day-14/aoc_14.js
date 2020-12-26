@@ -18,7 +18,8 @@ const part1Result = Object.values(input.reduce((acc, row) => {
 	} else {
 		const [rawMem, rawValue] = row.split` = `
 		const mem = +rawMem.replace(/\D/g, '')
-		const value = [...new Array(36).fill(0)].join``.substr((+rawValue).toString(2).length) + (+rawValue).toString(2)
+		const binary = (+rawValue).toString(2)
+		const value = [...new Array(36).fill(0)].join``.substr(binary.length) + binary
 		const result = parseInt(applyMask([...value]), 2)
 		acc[mem] = result
 	}
