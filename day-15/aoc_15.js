@@ -1,4 +1,4 @@
-let turns = [2, 0, 6, 12, 1, 3, 0]
+let turns = [2, 0, 6, 12, 1, 3]
 
 const findTurnOfLastSpoken = (last) => {
 	const sortedTurns = turns.reduce((acc, n, i) => {
