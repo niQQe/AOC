@@ -21,15 +21,13 @@ const findTurnOfLastSpoken = (last) => {
 	return largest - rest.slice(-1)[0]
 }
 
-for (let i = 0; i < spokenHistory.length; i++) {
+while(spokenHistory.length != target) {
 	const last = spokenHistory.slice(-1)[0]
-
+	
 	if (!isLastUnique(last))
 		spokenHistory.push(findTurnOfLastSpoken(last))
 	else 
 		spokenHistory.push(0)
-
-	if (spokenHistory.length == target) break
 }
 
 console.log(spokenHistory.slice(-1)[0])
