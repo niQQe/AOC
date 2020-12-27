@@ -21,12 +21,12 @@ const findTurnOfLastSpoken = (last) => {
 	return largest - rest.slice(-1)[0]
 }
 
-while(turns.length != target) {
+while (turns.length != target) {
 	const last = turns.slice(-1)[0]
 
 	if (!isLastUnique(last))
 		turns.push(findTurnOfLastSpoken(last))
-	else 
+	else
 		turns.push(0)
 }
 
