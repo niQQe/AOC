@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const input = fs.readFileSync('input2.txt', 'utf-8').split`\n\n`
+const input = fs.readFileSync('input.txt', 'utf-8').split`\n\n`
 
 
 const notes = input.reduce((acc, curr) => {
