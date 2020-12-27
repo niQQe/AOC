@@ -9,8 +9,6 @@ const notes = input.reduce((acc, curr) => {
 	return acc
 }, {})
 
-console.log(notes)
-
 const validNumbers = new Set(numbers = Object.keys(notes).reduce((acc, curr) => {
 	notes[curr].forEach(v => {
 		const [min, max] = v.split`-`
