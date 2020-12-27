@@ -2,10 +2,6 @@ let turns = [2, 0, 6, 12, 1, 3, 0]
 
 const target = 2020
 
-const isLastUnique = (n) => {
-	return !turns.slice(0, -1).includes(n)
-}
-
 const findTurnOfLastSpoken = (last) => {
 	const sortedIndexes = turns.reduce((acc, n, i) => {
 		if (n == last) acc.push(i)
@@ -23,9 +19,7 @@ const findTurnOfLastSpoken = (last) => {
 
 while (turns.length != target) {
 	const last = turns.slice(-1)[0]
-	!isLastUnique(last) ? turns.push(findTurnOfLastSpoken(last)) : turns.push(0)
+	turns.slice(0, -1).includes(last) ? turns.push(findTurnOfLastSpoken(last)) : turns.push(0)
 }
 
 console.log(turns.slice(-1)[0])
-
-
