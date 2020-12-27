@@ -2,7 +2,6 @@ const fs = require('fs')
 
 const input = fs.readFileSync('input.txt', 'utf-8').split`\n\n`
 
-
 const notes = input.reduce((acc, curr) => {
 	const [name, ...values] = curr.split`:`
 	const fixedValues = values.map(v => v.split`or`.join``.split`\n`.filter(v => v != '').join`  `.split`  `)
